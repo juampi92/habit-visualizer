@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Define gradient -->
+  <defs>
+    <linearGradient id="purpleBlueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9c27b0" />
+      <stop offset="100%" stop-color="#3f51b5" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background rounded square -->
+  <rect x="4" y="4" width="56" height="56" rx="14" ry="14" fill="url(#purpleBlueGradient)" />
+
+  <!-- Calendar frame (white) -->
+  <rect x="14" y="12" width="36" height="40" rx="3" ry="3" fill="white" />
+  
+  <!-- Calendar header -->
+  <rect x="14" y="12" width="36" height="8" rx="3" ry="3" fill="#673ab7" />
+  
+  <!-- Calendar grid lines (horizontal) -->
+  <line x1="14" y1="28" x2="50" y2="28" stroke="#e0e0e0" stroke-width="1" />
+  <line x1="14" y1="36" x2="50" y2="36" stroke="#e0e0e0" stroke-width="1" />
+  <line x1="14" y1="44" x2="50" y2="44" stroke="#e0e0e0" stroke-width="1" />
+
+  <!-- Calendar grid lines (vertical) -->
+  <line x1="22" y1="20" x2="22" y2="52" stroke="#e0e0e0" stroke-width="1" />
+  <line x1="30" y1="20" x2="30" y2="52" stroke="#e0e0e0" stroke-width="1" />
+  <line x1="38" y1="20" x2="38" y2="52" stroke="#e0e0e0" stroke-width="1" />
+  <line x1="46" y1="20" x2="46" y2="52" stroke="#e0e0e0" stroke-width="1" />
+  
+  <!-- Bar chart elements with gradient -->
+  <rect x="19" y="40" width="4" height="4" fill="#3f51b5" />
+  <rect x="27" y="32" width="4" height="12" fill="#5c6bc0" />
+  <rect x="35" y="24" width="4" height="20" fill="#7986cb" />
+  <rect x="43" y="30" width="4" height="14" fill="#9575cd" />
+  
+  <!-- Trending line -->
+  <path d="M21 42 L29 38 L37 34 L45 37" stroke="#ff4081" stroke-width="2" fill="none" />
+</svg>
