@@ -7,7 +7,6 @@ import type { CSVData, ProcessedData } from "@/lib/types"
 import { processCSVData } from "@/lib/csv-processor"
 
 export default function Home() {
-  const [csvData, setCsvData] = useState<CSVData | null>(null)
   const [processedData, setProcessedData] = useState<ProcessedData | null>(null)
   const [selectedField, setSelectedField] = useState<string | null>(null)
   const [palette, setPalette] = useState<"highGood" | "lowGood">("highGood")
@@ -15,7 +14,6 @@ export default function Home() {
   const [isConfigOpen, setIsConfigOpen] = useState<boolean>(true)
 
   const handleCSVUpload = (data: CSVData) => {
-    setCsvData(data)
     const processed = processCSVData(data)
     setProcessedData(processed)
 

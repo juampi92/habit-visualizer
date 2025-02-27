@@ -19,16 +19,24 @@ export function WeeklyCalendar({ processedData, selectedField, palette, maxValue
 
     // Group data by week
     const weekData: Record<string, number> = {}
-    let minDate: Date | null = null
-    let maxDate: Date | null = null
+    let minDate: Date
+    let maxDate: Date
+
+    if (rows.length > 0) {
+      minDate = new Date(rows[0][dateField])
+      maxDate = new Date(rows[0][dateField])
+    } else {
+      minDate = new Date()
+      maxDate = new Date()
+    }
 
     rows.forEach((row) => {
       const date = new Date(row[dateField])
       if (isNaN(date.getTime())) return
 
       // Track min and max dates
-      if (minDate === null || date < minDate) minDate = new Date(date)
-      if (maxDate === null || date > maxDate) maxDate = new Date(date)
+      if (minDate > date) minDate = new Date(date)
+      if (maxDate < date) maxDate = new Date(date)
 
       const year = date.getFullYear()
       const week = getWeekNumber(date)
@@ -61,9 +69,8 @@ export function WeeklyCalendar({ processedData, selectedField, palette, maxValue
   }, [processedData, selectedField])
 
   const calendarData = useMemo(() => {
-    if (!weeklyData.minDate || !weeklyData.maxDate) return []
-
     const { data, minDate, maxDate } = weeklyData
+
     const minYear = minDate.getFullYear()
     const maxYear = maxDate.getFullYear()
     const minWeek = getWeekNumber(minDate)
@@ -88,6 +95,7 @@ export function WeeklyCalendar({ processedData, selectedField, palette, maxValue
           hasData: weekKey in data,
           startDate: dateRange.start,
           endDate: dateRange.end,
+          isEmpty: false, // Add isEmpty property with a default value
         })
       }
 

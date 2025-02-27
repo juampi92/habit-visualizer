@@ -14,8 +14,31 @@ const START_DATE = new Date('2022-01-01');
 const END_DATE = new Date('2025-02-27');
 const PROBABILITY_OF_DATA = 0.99; // 99% of days will have data
 
+// Define types for habit configurations
+interface BaseHabitConfig {
+    type: 'boolean' | 'integer' | 'string';
+}
+
+interface BooleanHabitConfig extends BaseHabitConfig {
+    type: 'boolean';
+    goodWhenTrue: boolean;
+}
+
+interface IntegerHabitConfig extends BaseHabitConfig {
+    type: 'integer';
+    min: number;
+    max: number;
+    goodWhenHigh: boolean;
+}
+
+interface StringHabitConfig extends BaseHabitConfig {
+    type: 'string';
+}
+
+type HabitConfig = BooleanHabitConfig | IntegerHabitConfig | StringHabitConfig;
+
 // Habit definitions with their types and meanings
-const habits = {
+const habits: Record<string, HabitConfig> = {
     // Boolean habits (good when true)
     'Meditation': { type: 'boolean', goodWhenTrue: true },
     'Exercise': { type: 'boolean', goodWhenTrue: true },
@@ -33,7 +56,7 @@ const habits = {
     'Mood Notes': { type: 'string' },
 };
 
-function generateDayData() {
+function generateDayData(): Record<string, string> {
     const data: Record<string, string> = {};
     
     for (const [habit, config] of Object.entries(habits)) {
@@ -45,12 +68,13 @@ function generateDayData() {
         switch (config.type) {
             case 'boolean':
                 // Generate more true values for good habits, more false for bad habits
-                const baseProb = config.goodWhenTrue ? 0.7 : 0.3;
+                const baseProb = (config as BooleanHabitConfig).goodWhenTrue ? 0.7 : 0.3;
                 data[habit] = random() < baseProb ? 'Yes' : 'No';
                 break;
             
             case 'integer':
-                const value = Math.floor(random() * (config.max - config.min + 1) + config.min);
+                const intConfig = config as IntegerHabitConfig;
+                const value = Math.floor(random() * (intConfig.max - intConfig.min + 1) + intConfig.min);
                 data[habit] = value.toString();
                 break;
             
@@ -64,13 +88,13 @@ function generateDayData() {
     return data;
 }
 
-function generateCSV() {
+function generateCSV(): void {
     const headers = ['Date', ...Object.keys(habits)];
-    const rows = [];
+    const rows: Record<string, string>[] = [];
     
-    let currentDate = START_DATE;
+    let currentDate = new Date(START_DATE);
     while (currentDate <= END_DATE) {
-        const row = {
+        const row: Record<string, string> = {
             Date: format(currentDate, 'yyyy-MM-dd'),
             ...generateDayData()
         };
@@ -92,6 +116,8 @@ function generateCSV() {
     
     // Write to public directory so it can be served statically
     fs.writeFileSync(path.join(publicDir, 'sample-habits.csv'), csvContent);
+    
+    console.log('Sample data generated successfully at public/sample-habits.csv');
 }
 
 generateCSV();

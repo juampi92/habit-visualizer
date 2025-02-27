@@ -14,7 +14,7 @@ interface FieldSelectorProps {
 export function FieldSelector({ fields, selectedField, onFieldSelect }: FieldSelectorProps) {
   // Filter to only show boolean and number fields
   const visualizableFields = Object.entries(fields).filter(
-    ([_, info]) => info.type === "boolean" || info.type === "number",
+    ([, info]) => info.type === "boolean" || info.type === "number",
   )
 
   if (visualizableFields.length === 0) {
