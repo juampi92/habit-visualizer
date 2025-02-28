@@ -9,6 +9,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import type { CSVData } from "@/lib/types"
 import { Upload } from "lucide-react"
 import Papa from "papaparse"
+import { getPublicPath } from "@/lib/path-utils"
 
 interface FileUploadProps {
   onUpload: (data: CSVData) => void
@@ -76,7 +77,7 @@ export function FileUpload({ onUpload }: FileUploadProps) {
       {showSampleLink && (
         <div className="mt-2 text-sm text-gray-600">
           <a 
-            href="/sample-habits.csv" 
+            href={getPublicPath("/sample-habits.csv")} 
             download
             className="text-blue-600 hover:text-blue-800 hover:underline"
           >
@@ -87,4 +88,3 @@ export function FileUpload({ onUpload }: FileUploadProps) {
     </div>
   )
 }
-

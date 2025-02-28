@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { getPublicPath } from "@/lib/path-utils";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   title: "Habit Visualizer",
   description: "Visualize your habits",
   icons: {
-    icon: "/favicon.svg",
+    icon: getPublicPath("/favicon.svg"),
   },
 };
 
